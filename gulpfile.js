@@ -41,7 +41,7 @@ gulp.task('copy-partials', ['clean-partials'], function() {
 // Compile Sass
 gulp.task('sass', function() {
   return gulp.src('client/assets/scss/app.scss')
-    .pipe(sass({ loadPath: ['client/assets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
+    .pipe(sass({ loadPath: ['client/assets/scss', 'scss', 'node_modules/bootcamp/dist'], style: 'expanded', lineNumbers: true  }))
     .pipe(concat('app.css'))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
@@ -127,6 +127,16 @@ gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
       fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n' + data);
     })
   ;
+});
+
+gulp.task('tests', function() {
+  return gulp.src('./test/scss/tests.scss')
+    .pipe(sass({
+      loadPath: ['scss', 'client/assets/scss', 'node_modules/bootcamp/dist'],
+       style: 'expanded',
+       lineNumbers: true
+     }))
+    .pipe(gulp.dest('test/scss'));
 });
 
 gulp.task('server:start', ['build'], function() {

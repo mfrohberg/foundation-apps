@@ -7,3 +7,4 @@ npm-debug.log
 /dist/*
 /.sass-cache/*
 /build/*
+/test/scss/tests.css*
